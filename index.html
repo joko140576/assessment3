@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aplikasi Alarm Assessment</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .top-container {
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+      background: #2c3e50;
+      color: white;
+    }
+
+    .digital-clock {
+      font-size: 32px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .main-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin: 20px;
+      width: 95%;
+    }
+
+    .container {
+      flex: 1;
+      min-width: 350px;
+      max-width: 400px;
+      padding: 25px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      transition: transform 0.2s;
+    }
+    .container:hover {
+      transform: translateY(-4px);
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 15px;
+    }
+
+    .info-box {
+      margin: 15px 0;
+      padding: 18px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      background: #fafafa;
+    }
+
+    .btn {
+      padding: 12px 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 12px;
+      font-size: 15px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      opacity: 0.9;
+      transform: scale(1.05);
+    }
+    .btn-token {
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: white;
+    }
+    .btn-timer {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      color: white;
+    }
+
+    /* Modal umum */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      animation: fadeIn 0.4s ease;
+    }
+    .modal-content {
+      font-family: "Courier New", monospace;
+      font-weight: bold;
+      padding: 50px 70px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 0 25px rgba(0,0,0,0.8);
+      min-width: 280px;
+      animation: zoomIn 0.4s ease;
+      position: relative;
+    }
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      border: none;
+      background: #fff;
+      color: #333;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      transition: 0.3s;
+    }
+    .close-btn:hover {
+      background: #e74c3c;
+      color: #fff;
+    }
+
+    /* Modal Timer */
+    #timerModal .modal-content {
+      background: linear-gradient(135deg, #000, #111);
+      color: #ff3b3b;
+      font-size: 72px;
+      text-shadow: 0 0 10px #ff0000, 0 0 25px #ff3b3b;
+      font-family: 'Seven Segment', 'Courier New', monospace;
+    }
+
+    /* Modal Token */
+    #tokenModal .modal-content {
+      background: linear-gradient(135deg, #002b5b, #004d99);
+      color: #00f7ff;
+      font-size: 48px;
+      text-shadow: 0 0 12px #00ffff, 0 0 25px #00f7ff;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.6); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* Alert */
+    #alertBox {
+      display: none;
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      border: 2px solid #e74c3c;
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      color: #e74c3c;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+      z-index: 1000;
+    }
+    #alertBox button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <!-- Jam digital di atas -->
+  <div class="top-container">
+    <div class="digital-clock" id="digitalClock">00:00:00</div>
+  </div>
+
+  <!-- Dua layar berdampingan -->
+  <div class="main-container">
+    <div class="container">
+      <h2>Soal Assessment 1</h2>
+      <div class="info-box">
+        <p>TKD Test Kemampuan Dasar (60 Soal)</p>
+        <ul>
+          <li>Soal SOP</li>
+          <li>Soal Tupoksi</li>
+          <li>Soal Budaya Perusahaan</li>
+        </ul>
+        <p>Link Soal:</p>
+        <p style="color: blueviolet;font-weight: bold;">https://forms.gle/Kc9dWRLebnN7T5ZD7</p>
+        <button class="btn btn-token" onclick="showTokenModal('🔑 siap2025')">Token</button>
+        <p>Waktu: 30 menit</p>
+        <button class="btn btn-timer" onclick="startTimer(30)">⏰ Setel Alarm</button>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>Soal Assessment 2</h2>
+      <div class="info-box">
+        <p>Materi Leadership Competency Skills (100 Soal)</p>
+        <ul>
+          <li>Customer Fokus</li>
+          <li>Driving Execution</li>
+          <li>Developing Organization Capabilities</li>
+          <li>Managing Diversity</li>
+          <li>Driving innovation</li>
+          <li>Leading change</li>
+          <li>Strategic Orientation</li>
+          <li>Global Business Savvy </li>
+          <li>Building Business Patnership</li>
+          <li>Digital Leadership </li>
+        </ul>
+        <p>Link Soal:</p>
+        <p style="color: blueviolet;font-weight: bold;">https://forms.gle/FgsbYEQUASmFLwBv7</p>
+        <button class="btn btn-token" onclick="showTokenModal('🔑 ssibisa')">Token</button>
+        <p>Waktu: 45 menit</p>
+        <button class="btn btn-timer" onclick="startTimer(45)">⏰ Setel Alarm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Timer -->
+  <div id="timerModal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeTimer()">×</button>
+      <div id="modalTimerDisplay">00:00</div>
+    </div>
+  </div>
+
+  <!-- Modal Token -->
+  <div id="tokenModal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeTokenModal()">×</button>
+      <div id="modalTokenText">TOKEN</div>
+    </div>
+  </div>
+
+  <!-- Alert -->
+  <div id="alertBox">
+    <p>⏰ Waktu habis !!</p>
+    <button onclick="closeAlert()">OK</button>
+  </div>
+
+  <!-- Suara alarm -->
+  <audio id="alarmSound">
+    <source src="https://www.soundjay.com/button/beep-07.wav" type="audio/wav">
+  </audio>
+
+  <script>
+    // Jam digital realtime
+    function updateClock() {
+      const now = new Date();
+      const time = now.toLocaleTimeString();
+      document.getElementById("digitalClock").innerText = time;
+    }
+    setInterval(updateClock, 1000);
+
+    // Timer
+    let modalTimerInterval;
+    function startTimer(minutes) {
+      if (modalTimerInterval) clearInterval(modalTimerInterval);
+      let time = minutes * 60;
+      let modalDisplay = document.getElementById("modalTimerDisplay");
+      document.getElementById("timerModal").style.display = "flex";
+
+      modalTimerInterval = setInterval(() => {
+        let m = Math.floor(time / 60);
+        let s = time % 60;
+        modalDisplay.textContent = `${m}:${s < 10 ? "0" : ""}${s}`;
+        if (time <= 0) {
+          clearInterval(modalTimerInterval);
+          showAlert();
+        }
+        time--;
+      }, 1000);
+    }
+    function closeTimer() {
+      document.getElementById("timerModal").style.display = "none";
+      if (modalTimerInterval) clearInterval(modalTimerInterval);
+    }
+
+    // Token Modal
+    function showTokenModal(tokenText) {
+      document.getElementById("modalTokenText").textContent = tokenText;
+      document.getElementById("tokenModal").style.display = "flex";
+    }
+    function closeTokenModal() {
+      document.getElementById("tokenModal").style.display = "none";
+    }
+
+    // Alert dengan suara
+    function showAlert() {
+      document.getElementById("alertBox").style.display = "block";
+      document.getElementById("alarmSound").play();
+    }
+    function closeAlert() {
+      document.getElementById("alertBox").style.display = "none";
+      document.getElementById("alarmSound").pause();
+      document.getElementById("alarmSound").currentTime = 0;
+    }
+  </script>
