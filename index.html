@@ -33,16 +33,16 @@
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      gap: 20px;
+      gap: 10px;
       flex-wrap: wrap;
-      margin: 20px;
+      margin: 10px;
       width: 95%;
     }
 
     .container {
       flex: 1;
-      min-width: 350px;
-      max-width: 400px;
+      min-width: 250px;
+      max-width: 350px;
       padding: 25px;
       background: white;
       border-radius: 16px;
@@ -68,12 +68,12 @@
     }
 
     .btn {
-      padding: 12px 18px;
+      padding: 10px 15px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      margin-top: 12px;
-      font-size: 15px;
+      margin-top: 8px;
+      font-size: 14px;
       font-weight: bold;
       transition: 0.3s;
     }
@@ -87,6 +87,10 @@
     }
     .btn-timer {
       background: linear-gradient(135deg, #e74c3c, #c0392b);
+      color: white;
+    }
+    .btn-copy {
+      background: linear-gradient(135deg, #16a085, #1abc9c);
       color: white;
     }
 
@@ -192,48 +196,91 @@
     <div class="digital-clock" id="digitalClock">00:00:00</div>
   </div>
 
-  <!-- Dua layar berdampingan -->
+  <!-- Tiga layar berdampingan -->
   <div class="main-container">
+    <!-- Assessment 1 -->
     <div class="container">
-      <h2>Soal Assessment 1</h2>
+      <h2>Soal TKD</h2>
       <div class="info-box">
-        <p>TKD Test Kemampuan Dasar (60 Soal)</p>
+        <p>Test Kemampuan Dasar ** 80 Soal **</p>
         <ul>
-          <li>Soal SOP</li>
-          <li>Soal Tupoksi</li>
-          <li>Soal Budaya Perusahaan</li>
+          <li>Pengetahuan umum </li>
+          <li>Digitalisasi</li>
+          <li>Dokumentasi</li>
         </ul>
         <p>Link Soal:</p>
-        <p style="color: blueviolet;font-weight: bold;">https://forms.gle/Kc9dWRLebnN7T5ZD7</p>
-        <button class="btn btn-token" onclick="showTokenModal('🔑 siap2025')">Token</button>
+        <p style="color: blueviolet;font-weight: bold;word-wrap: break-word;">
+          https://forms.gle/17NjhGeE65eK4WXD9
+        </p>
+        <button class="btn btn-copy" onclick="copyLink('https://forms.gle/17NjhGeE65eK4WXD9')">📋 Copy Link</button>
+        <button class="btn btn-token" onclick="showTokenModal('🔑 jatiwarna')">Token</button>     
+        <p>Waktu: 35 menit</p>
+        <button class="btn btn-timer" onclick="startTimer(35)">⏰ Setel Alarm</button>
+      </div>
+    </div>
+
+    <!-- Assessment 2 -->
+    <div class="container">
+      <h2>Soal TLMS </h2>
+      <div class="info-box">
+        <p>1. Test Leadership Managerial Skill - Manager HQ **40 soal**</p>
+        <ul>
+          <li>Customer Fokus</li>
+          <li>Driving Execution </li>
+          <li>Develop organization Capabilities</li>
+          <li>Managing Diversity </li>
+        </ul>
+        <p>Link Soal COU :</p>
+        <p style="color: blueviolet;font-weight: bold;word-wrap: break-word;">
+          https://forms.gle/vuiBx9s3QjboCnKZ6
+        </p>
+        <button class="btn btn-copy" onclick="copyLink('https://forms.gle/vuiBx9s3QjboCnKZ6')">📋 Copy Link</button>
+        <button class="btn btn-token" onclick="showTokenModal('🔑 ssibisa')">Token</button>  
+      </div>
+      <div class="info-box">      
+        <p>2. Test Leadership Managerial Skill - Senior manager ** 60 Soal **</p>
+        <ul>
+          <li>Customer Fokus</li>
+          <li>Driving Execution </li>
+          <li>Leading Change</li>
+          <li>Driving Innovation</li>
+          <li>Managing Diversity </li>
+          <li>Digital Leadership</li>
+        </ul>
+        <p>Link Soal TLMS Senior Manager :</p>
+        <p style="color: blueviolet;font-weight: bold;word-wrap: break-word;">
+          https://forms.gle/319r5yxBfHxaJoKJA
+        </p>
+        <button class="btn btn-copy" onclick="copyLink('https://forms.gle/319r5yxBfHxaJoKJA')">📋 Copy Link</button>
+        <button class="btn btn-token" onclick="showTokenModal('🔑 profesional')">Token</button>      
         <p>Waktu: 30 menit</p>
         <button class="btn btn-timer" onclick="startTimer(30)">⏰ Setel Alarm</button>
       </div>
     </div>
 
+    <!-- Assessment 3 (Essay) -->
     <div class="container">
-      <h2>Soal Assessment 2</h2>
+      <h2>Soal Essay </h2>
       <div class="info-box">
-        <p>Materi Leadership Competency Skills (100 Soal)</p>
+        <p>Materi Essay (5 Soal)</p>
         <ul>
-          <li>Customer Fokus</li>
-          <li>Driving Execution</li>
-          <li>Developing Organization Capabilities</li>
-          <li>Managing Diversity</li>
-          <li>Driving innovation</li>
-          <li>Leading change</li>
-          <li>Strategic Orientation</li>
-          <li>Global Business Savvy </li>
-          <li>Building Business Patnership</li>
-          <li>Digital Leadership </li>
+          <li>Jawaban panjang</li>
+          <li>Analisis dan argumentasi</li>
+          <li>Kemampuan berpikir kritis</li>
         </ul>
-        <p>Link Soal:</p>
-        <p style="color: blueviolet;font-weight: bold;">https://forms.gle/FgsbYEQUASmFLwBv7</p>
-        <button class="btn btn-token" onclick="showTokenModal('🔑 ssibisa')">Token</button>
+        <p>Link Soal untuk semua  :</p>
+        <p style="color: blueviolet;font-weight: bold;word-wrap: break-word;">
+          https://forms.gle/q1TCxpQvNQXVN86g7
+        </p>
+        <button class="btn btn-copy" onclick="copyLink('https://forms.gle/q1TCxpQvNQXVN86g7')">📋 Copy Link</button>
+        <button class="btn btn-token" onclick="showTokenModal('🔑 solid')">Token</button>               
+        <br>     
         <p>Waktu: 45 menit</p>
         <button class="btn btn-timer" onclick="startTimer(45)">⏰ Setel Alarm</button>
       </div>
     </div>
+
+    
   </div>
 
   <!-- Modal Timer -->
@@ -315,4 +362,15 @@
       document.getElementById("alarmSound").pause();
       document.getElementById("alarmSound").currentTime = 0;
     }
+
+    // Copy link ke clipboard
+    function copyLink(link) {
+      navigator.clipboard.writeText(link).then(() => {
+        alert("✅ Link berhasil disalin:\n" + link);
+      }).catch(err => {
+        alert("❌ Gagal menyalin link: " + err);
+      });
+    }
   </script>
+</body>
+</html>
